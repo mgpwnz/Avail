@@ -32,6 +32,7 @@ sleep 3
 sudo apt install wget -y &> /dev/null
 sudo apt-get install libgomp1 -y &> /dev/null
 cd $HOME
+mkdir .avail && cd .avail
 #download binary
 wget https://github.com/availproject/avail-light/releases/download/$version/avail-light-linux-amd64.tar.gz  && \
 tar zxvf avail-light-linux-amd64.tar.gz && \
@@ -86,6 +87,10 @@ echo "3h update is not possible. If you have a node from the 3g network, you nee
 
 update() {
 cd $HOME
+if [ ! -d "$HOME/.avail" ]; then
+            echo node is not install!
+            return 1
+        fi
 sudo apt update &> /dev/null
 #download cli
 wget https://github.com/availproject/avail-light/releases/download/$version/avail-light-linux-amd64.tar.gz  && \
