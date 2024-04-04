@@ -51,7 +51,7 @@ Restart=always
 RestartSec=120
 [Install] 
 WantedBy=multi-user.target
-    " > $HOME/avail.service.service
+    " > $HOME/avail.service
 
     sudo mv $HOME/avail.service /etc/systemd/system
 
