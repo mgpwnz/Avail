@@ -82,10 +82,11 @@ Description=Avail Light Client
 After=network.target
 StartLimitIntervalSec=0
 [Service] 
-User=root 
+User=$USER 
 ExecStart=avail-light --network goldberg --config $CONFIG --identity $IDENTITY
 Restart=always 
 RestartSec=120
+LimitNOFILE=65535
 [Install] 
 WantedBy=multi-user.target
     " > $HOME/avail.service
