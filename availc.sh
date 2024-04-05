@@ -1,8 +1,6 @@
 #!/bin/bash
 # Default variables
 function="install"
-#new version 04.04.2024
-version=v1.7.10
 # Options
 option_value(){ echo "$1" | sed -e 's%^--[^=]*=%%g; s%^-[^=]*=%%g'; }
 while test $# -gt 0; do
@@ -311,12 +309,6 @@ case "$response" in
         return 0
         ;;
 esac
-}
-new(){
-echo "3h update is not possible. If you have a node from the 3g network, you need to delete the old version!"
-}
-
-update() {
 }
 # Actions
 sudo apt install wget -y &>/dev/null
