@@ -25,6 +25,8 @@ while test $# -gt 0; do
 	esac
 done
 install() {
+echo -e "\e[1m\e[32m2. Enter Avail FullNode name \e[0m"
+read -p "FullNode Name : " NAME
 sudo apt update &> /dev/null
 apt-get install protobuf-compiler -y
 apt-get update && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install -y --no-install-recommends tzdata git ca-certificates curl build-essential libssl-dev pkg-config libclang-dev cmake jq
@@ -36,19 +38,16 @@ sudo apt-get install libgomp1 -y &> /dev/null
 cd $HOME
 #create dir
 sudo mkdir $HOME/avail
-sudo mkdir $HOME/avail/config
-sudo mkdir $HOME/avail/state
-sudo mkdir $HOME/avail/keystore
 #download 
 cd $HOME/avail
-sudo docker run -v $(pwd)/state:/da/state:rw -p 37333:30333 -p 9615:9615 -p 9944:9944 -d --restart unless-stopped availj/avail:v1.10.0.0 --chain goldberg --name "MyAweasomeInContainerAvailAnode" -d /da/state
+sudo docker run -v $(pwd)/state:/da/state:rw -v $(pwd)/keystore:/da/keystore:rw -e DA_CHAIN=goldberg -e DA_NAME=$NAME -p 37333:30333 -p 10615:9615 -p 10944:9944 -d --name=avail --restart unless-stopped availj/avail:v1.8.0.0 --rpc-cors=all --rpc-external --rpc-methods=unsafe --rpc-port 9944
 
 }
 uninstall() {
 read -r -p "You really want to delete the node? [y/N] " response
 case "$response" in
     [yY][eE][sS]|[yY]) 
-    
+    docker stop avail docker rm avail
     echo "Done"
     cd $HOME
     ;;
@@ -58,15 +57,11 @@ case "$response" in
         ;;
 esac
 }
-new(){
-echo "3h update is not possible. If you have a node from the 3g network, you need to delete the old version!"
-}
 
 update() {
 cd $HOME
 sudo apt update &> /dev/null
 #download cli
-
 echo -e "Your Avail node \e[32mUpdate\e[39m!"
 cd $HOME
 }
