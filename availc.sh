@@ -25,7 +25,6 @@ while test $# -gt 0; do
 	esac
 done
 install() {
-#!/usr/bin/env bash
 echo "🆙 Starting Availup..."
 while [ $# -gt 0 ]; do
     if [[ $1 = "--"* ]]; then
