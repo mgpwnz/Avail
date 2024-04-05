@@ -28,6 +28,8 @@ install() {
 sudo apt update &> /dev/null
 apt-get install protobuf-compiler -y
 apt-get update && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install -y --no-install-recommends tzdata git ca-certificates curl build-essential libssl-dev pkg-config libclang-dev cmake jq
+sudo curl https://sh.rustup.rs -sSf | sh -s -- -y
+source $HOME/.cargo/env
 sleep 3
 sudo apt install wget -y &> /dev/null
 sudo apt-get install libgomp1 -y &> /dev/null
